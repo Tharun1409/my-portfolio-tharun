@@ -1,25 +1,20 @@
-import { useMemo, useState } from "react";
 import { ThemeProvider, CssBaseline } from "@mui/material";
 import { createTheme } from "@mui/material/styles";
 import AppRoutes from "./routes/AppRoutes";
+import Footer from "./components/layout/Footer";
+
+const darkTheme = createTheme({
+  palette: {
+    mode: "dark",
+  },
+});
 
 const App = () => {
-  const [mode, setMode] = useState<"light" | "dark">("light");
-
-  const theme = useMemo(
-    () =>
-      createTheme({
-        palette: {
-          mode,
-        },
-      }),
-    [mode]
-  );
-
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={darkTheme}>
       <CssBaseline />
-      <AppRoutes mode={mode} setMode={setMode} />
+      <AppRoutes />
+      <Footer />
     </ThemeProvider>
   );
 };

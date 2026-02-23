@@ -9,22 +9,7 @@ import {
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { Projects as ProjectsData } from "../../data/Projects";
-// const projects = [
-//   {
-//     id: "analytics-dashboard",
-//     title: "Enterprise Analytics Dashboard",
-//     description:
-//       "Built a data-heavy dashboard with AG Grid, Chart.js, and optimized React rendering.",
-//     tech: ["React", "TypeScript", "AG Grid", "Chart.js", "MUI"],
-//   },
-//   {
-//     id: "workflow-system",
-//     title: "Workflow Visualization System",
-//     description:
-//       "Designed interactive workflows using React Flow with complex state handling.",
-//     tech: ["React", "TypeScript", "React Flow", "Redux"],
-//   },
-// ];
+
 
 
 const Projects = () => {
@@ -62,42 +47,62 @@ const Projects = () => {
 
         <Stack spacing={3}>
          {ProjectsData.map((project) => (
-  <Card
-    key={project.id}
+ <Card
+  key={project.id}
+  onClick={() => navigate(`/projects/${project.id}`)}
   sx={{
-    height: "100%",
-    borderRadius: 3,
-    background:
-      "linear-gradient(145deg, #fbefef, #c89b9b)",
-    border: "1px solid rgba(255,255,255,0.05)",
+    borderRadius: 4,
+    p: 1,
+    backgroundColor: "background.paper",
+    border: "1px solid",
+    borderColor: "divider",
     transition: "all 0.3s ease",
     cursor: "pointer",
+
     "&:hover": {
-      transform: "translateY(-6px)",
-      border: "1px solid rgba(255,255,255,0.15)",
+      transform: "translateY(-8px)",
+      boxShadow: 6,
+      borderColor: "primary.main",
     },
   }}
-    onClick={() => navigate(`/projects/${project.id}`)}
-  >
+>
     <CardContent>
-      <Typography variant="h6" fontWeight={600}>
-        {project.projectTitle}
-      </Typography>
+  <Typography
+    variant="h5"
+    fontWeight={700}
+    sx={{ mb: 1 }}
+  >
+    {project.projectTitle}
+  </Typography>
 
-      <Typography color="text.secondary" sx={{ mt: 1 }}>
-        {project.description}
-      </Typography>
+  <Typography
+    variant="body1"
+    color="text.secondary"
+    sx={{ mb: 2 }}
+  >
+    {project.description}
+  </Typography>
 
-      <Stack
-        direction="row"
-        spacing={1}
-        sx={{ mt: 2, flexWrap: "wrap" }}
-      >
-        {project.tech.map((t) => (
-          <Chip key={t} label={t} size="small" />
-        ))}
-      </Stack>
-    </CardContent>
+  <Stack
+    direction="row"
+    spacing={1}
+    flexWrap="wrap"
+    useFlexGap
+  >
+    {project.tech.map((t) => (
+      <Chip
+        key={t}
+        label={t}
+        size="small"
+        sx={{
+          fontWeight: 500,
+          borderRadius: 2,
+          backgroundColor: "action.hover",
+        }}
+      />
+    ))}
+  </Stack>
+</CardContent>
   </Card>
 ))}
 

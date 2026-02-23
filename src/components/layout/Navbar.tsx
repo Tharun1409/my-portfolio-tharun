@@ -1,51 +1,110 @@
-import { AppBar, Toolbar, Typography, IconButton, Box } from "@mui/material";
-import DarkModeIcon from "@mui/icons-material/DarkMode";
-import LightModeIcon from "@mui/icons-material/LightMode";
+import {
+  AppBar,
+  Toolbar,
+  Typography,
+  IconButton,
+  Box,
+  Drawer,
+  List,
+  ListItem,
+  ListItemText,
+} from "@mui/material";
+import MenuIcon from "@mui/icons-material/Menu";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
-interface NavbarProps {
-  mode: "light" | "dark";
-  setMode: React.Dispatch<React.SetStateAction<"light" | "dark">>;
-}
+const Navbar = () => {
+  const [open, setOpen] = useState(false);
 
-const Navbar = ({ mode, setMode }: NavbarProps) => {
-  const toggleTheme = () => {
-    setMode(mode === "light" ? "dark" : "light");
+  const toggleDrawer = (state: boolean) => () => {
+    setOpen(state);
   };
 
+  const navLinks = [
+    { label: "Projects", path: "/projects" },
+    { label: "About Tharun", path: "/experience" },
+  ];
+
   return (
-    <AppBar position="sticky" color="transparent" elevation={0}>
-      <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
-        
-        {/* Logo / Name */}
-        <Typography
-          variant="h6"
-          component={Link}
-          to="/"
-          sx={{ textDecoration: "none", color: "text.primary", fontWeight: 600 }}
+    <>
+      <AppBar
+        position="sticky"
+        elevation={0}
+        sx={{
+          backdropFilter: "blur(8px)",
+          backgroundColor: "rgba(18,18,18,0.95)",
+          borderBottom: "1px solid",
+          borderColor: "divider",
+        }}
+      >
+        <Toolbar
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            minHeight: 64,
+          }}
         >
-          Tharun
-        </Typography>
+          {/* Logo */}
+          <Typography
+            variant="h6"
+            component={Link}
+            to="/"
+            sx={{
+              textDecoration: "none",
+              color: "text.primary",
+              fontWeight: 700,
+            }}
+          >
+            Tharun
+          </Typography>
 
-        {/* Navigation */}
-        <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
-          <Typography component={Link} to="/projects" sx={linkStyle}>
-            Projects
-          </Typography>
-          <Typography component={Link} to="/experience" sx={linkStyle}>
-            Experience
-          </Typography>
-          <Typography component={Link} to="/contact" sx={linkStyle}>
-            Contact
-          </Typography>
+          {/* Desktop Menu */}
+          <Box
+            sx={{
+              display: { xs: "none", md: "flex" },
+              alignItems: "center",
+              gap: 3,
+            }}
+          >
+            {navLinks.map((item) => (
+              <Typography
+                key={item.label}
+                component={Link}
+                to={item.path}
+                sx={linkStyle}
+              >
+                {item.label}
+              </Typography>
+            ))}
+          </Box>
 
-          {/* Theme Toggle */}
-          <IconButton onClick={toggleTheme} color="inherit">
-            {mode === "light" ? <DarkModeIcon /> : <LightModeIcon />}
-          </IconButton>
+          {/* Mobile Menu Button */}
+          <Box sx={{ display: { xs: "flex", md: "none" } }}>
+            <IconButton onClick={toggleDrawer(true)}>
+              <MenuIcon />
+            </IconButton>
+          </Box>
+        </Toolbar>
+      </AppBar>
+
+      {/* Mobile Drawer */}
+      <Drawer anchor="right" open={open} onClose={toggleDrawer(false)}>
+        <Box sx={{ width: 250 }} role="presentation">
+          <List>
+            {navLinks.map((item) => (
+              <ListItem
+                key={item.label}
+                component={Link}
+                to={item.path}
+                onClick={toggleDrawer(false)}
+              >
+                <ListItemText primary={item.label} />
+              </ListItem>
+            ))}
+          </List>
         </Box>
-      </Toolbar>
-    </AppBar>
+      </Drawer>
+    </>
   );
 };
 
@@ -53,6 +112,9 @@ const linkStyle = {
   textDecoration: "none",
   color: "text.primary",
   fontWeight: 500,
+  "&:hover": {
+    color: "primary.main",
+  },
 };
 
 export default Navbar;

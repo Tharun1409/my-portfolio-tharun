@@ -31,90 +31,104 @@ const ProjectDetails = () => {
   }
 
   return (
-    <Box
-  sx={{
-    minHeight: "100vh",
-    py: { xs: 6, md: 12 },
-  }}
->
-  <Container maxWidth="md">
-        {/* Back Button */}
-        <Button
-          startIcon={<ArrowBackIcon />}
-          onClick={() => navigate(-1)}
-          sx={{ mb: 3 }}
-        >
-          Back
-        </Button>
-
-        {/* Title */}
-       <Typography
-  variant="h2"
-  fontWeight={800}
-  sx={{
-    lineHeight: 1.2,
-    mb: 3,
-  }}
->
-  {project.projectTitle}
-</Typography>
-
-        {/* Description */}
-       <Typography
-  variant="body1"
-  color="text.secondary"
-  sx={{
-    fontSize: "1.1rem",
-    lineHeight: 1.8,
-    maxWidth: 700,
-  }}
->
-  {project.description}
-</Typography>
-
-        {/* Tech Stack */}
-        {/* <Typography variant="h6" fontWeight={600} sx={{ mt: 4 }}>
-          Tech Stack
-        </Typography>
-
-        <Stack direction="row" spacing={1} sx={{ mt: 2, flexWrap: "wrap" }}>
-          {project.tech.map((t) => (
-            <Chip key={t} label={t} />
-          ))}
-        </Stack> */}
-
-        <Box sx={{ mt: 8 }}>
-  <Typography
-    variant="h5"
-    fontWeight={700}
-    sx={{ mb: 3 }}
-  >
-    Tech Stack
-  </Typography>
-
+   
   <Box
     sx={{
-      display: "flex",
-      flexWrap: "wrap",
-      gap: 1.5,
+      minHeight: "100vh",
+      py: { xs: 6, md: 10 },
     }}
   >
-    {project.tech.map((t) => (
-      <Chip
-        key={t}
-        label={t}
+    <Container maxWidth="md">
+      {/* Back Button */}
+      <Button
+        startIcon={<ArrowBackIcon />}
+        onClick={() => navigate(-1)}
         sx={{
-          backgroundColor: "#1e1e1e",
-          border: "1px solid rgba(255,255,255,0.1)",
+          mb: 5,
+          textTransform: "none",
+          fontWeight: 500,
         }}
-      />
-    ))}
-  </Box>
-</Box>
+      >
+        Back to Projects
+      </Button>
 
-      </Container>
-    </Box>
-  );
+      {/* Title */}
+      <Typography
+        variant="h3"
+        fontWeight={800}
+        sx={{
+          mb: 3,
+          fontSize: { xs: "1.8rem", sm: "2.3rem", md: "2.8rem" },
+          lineHeight: 1.2,
+        }}
+      >
+        {project.projectTitle}
+      </Typography>
+
+      {/* Description */}
+      <Typography
+        variant="body1"
+        color="text.secondary"
+        sx={{
+          fontSize: { xs: "1rem", md: "1.1rem" },
+          lineHeight: 1.8,
+          mb: 6,
+        }}
+      >
+        {project.description}
+      </Typography>
+
+      {/* Divider Card Section */}
+      <Box
+        sx={{
+          p: { xs: 3, md: 4 },
+          borderRadius: 4,
+          backgroundColor: "background.paper",
+          border: "1px solid",
+          borderColor: "divider",
+        }}
+      >
+        <Typography
+          variant="h6"
+          fontWeight={700}
+          sx={{ mb: 3 }}
+        >
+          Tech Stack
+        </Typography>
+<Box sx={{ mt: 6 }}>
+  <Typography variant="h6" fontWeight={700} sx={{ mb: 2 }}>
+    Key Contributions
+  </Typography>
+
+  <Typography color="text.secondary" sx={{ lineHeight: 1.8 }}>
+    {project.contributions.map((c, i) => (
+      <p key={i}>{c}</p>
+    ))}
+  </Typography>
+</Box>
+        <Box
+          sx={{
+            display: "flex",
+            flexWrap: "wrap",
+            gap: 1.5,
+          }}
+        >
+          {project.tech.map((t) => (
+            <Chip
+              key={t}
+              label={t}
+              sx={{
+                borderRadius: 2,
+                fontWeight: 500,
+                backgroundColor: "action.hover",
+              }}
+            />
+          ))}
+        </Box>
+      </Box>
+    </Container>
+  </Box>
+);
 };
 
 export default ProjectDetails;
