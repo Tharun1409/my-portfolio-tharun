@@ -306,7 +306,7 @@ const Home = () => {
         real-time billing, and responsive dashboard for daily operations.
                   </Typography>
 
-                  <Stack direction="row" spacing={1} mt={3} flexWrap="wrap">
+                  <Stack direction="row" spacing={1} mt={3} flexWrap="wrap" gap={1.5}>
                     {["React", "TypeScript", "Redux", "MUI","Node.js", "Express","API"].map((tech) => (
                       <Chip key={tech} label={tech} size="small" />
                     ))}
